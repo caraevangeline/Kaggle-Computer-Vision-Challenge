@@ -1,6 +1,6 @@
 # UA-DETRAC Vehicle Detection — Starter Kit
 
-Real-time vehicle detection across four classes — **truck, car, van, bus** — on overhead traffic camera footage from the [UA-DETRAC](http://detrac-db.rit.albany.edu/) benchmark, evaluated at COCO mAP (IoU 0.50:0.95).
+Real-time vehicle detection across four classes - **truck, car, van, bus** - on overhead traffic camera footage from the [UA-DETRAC](http://detrac-db.rit.albany.edu/) benchmark, evaluated at COCO mAP (IoU 0.50:0.95).
 
 **YOLOv8n only · 3LC tables · CSV submission format**
 
