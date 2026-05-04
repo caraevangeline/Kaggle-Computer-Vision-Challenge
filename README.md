@@ -1,9 +1,9 @@
 # Data-Centric Multi-Vehicle Detection with Knowledge Distillation
 
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)]()
-[![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)]()
-[![YOLO](https://img.shields.io/badge/Model-YOLOv8-green)]()
-[![Status](https://img.shields.io/badge/Status-Active-success)]()
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](#)
+[![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)](#)
+[![YOLO](https://img.shields.io/badge/Model-YOLOv8-green)](#)
+[![Status](https://img.shields.io/badge/Status-Active-success)](#)
 
 This project addresses a real-world object detection problem from the Kaggle
 *[Multi-Vehicle Detection Challenge](https://www.kaggle.com/competitions/3-lc-multi-vehicle-detection-challenge)*,
