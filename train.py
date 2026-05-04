@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Train YOLOv8n on 3LC train/val tables. All settings come from config.yaml.
 
 Competition rules enforced here:

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Run inference on test images and write a Kaggle submission CSV.
 
 Two pipelines are available, controlled by ``predict.pipeline`` in config.yaml:

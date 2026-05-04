@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Register train and val YOLO splits with 3LC.
 
 Does not register a test split: participants have test images on disk only and
@@ -19,13 +18,17 @@ import sys
 import warnings
 from pathlib import Path
 
-warnings.filterwarnings("ignore", message=".*from_yolo.*deprecated.*", category=DeprecationWarning)
-warnings.filterwarnings("ignore", message=".*from_yolo.*deprecated.*", category=UserWarning)
+warnings.filterwarnings(
+    "ignore", message=".*from_yolo.*deprecated.*", category=DeprecationWarning
+)
+warnings.filterwarnings(
+    "ignore", message=".*from_yolo.*deprecated.*", category=UserWarning
+)
 logging.getLogger("3lc").setLevel(logging.ERROR)
 
 import tlc  # noqa: E402
 
-WORK_DIR: Path = Path(__file__).resolve().parent
+WORK_DIR = Path(__file__).resolve().parent
 
 
 def _load_yaml(path: Path) -> dict:
@@ -37,19 +40,28 @@ def _load_yaml(path: Path) -> dict:
 
 
 def _resolve(path_str: str) -> Path:
-    """Resolve *path_str* relative to WORK_DIR if it is not already absolute."""
-    p = Path(path_str)
-    return p if p.is_absolute() else (WORK_DIR / p).resolve()
+    """Resolve *path_str* relative to WORK_DIR if not absolute."""
+    path = Path(path_str)
+    return path if path.is_absolute() else (WORK_DIR / path).resolve()
 
 
-def _tables_exist(project_name: str, dataset_name: str, train_name: str, val_name: str) -> bool:
-    """Return ``True`` if both train and val tables are already registered in 3LC."""
+def _tables_exist(
+    project_name: str,
+    dataset_name: str,
+    train_name: str,
+    val_name: str,
+) -> bool:
+    """Return True if both train and val tables are already registered."""
     try:
         tlc.Table.from_names(
-            project_name=project_name, dataset_name=dataset_name, table_name=train_name
+            project_name=project_name,
+            dataset_name=dataset_name,
+            table_name=train_name,
         )
         tlc.Table.from_names(
-            project_name=project_name, dataset_name=dataset_name, table_name=val_name
+            project_name=project_name,
+            dataset_name=dataset_name,
+            table_name=val_name,
         )
         return True
     except Exception:
@@ -80,10 +92,11 @@ def main() -> int:
         "data/val/images",
         "data/val/labels",
     )
-    for sub in required_dirs:
-        p = WORK_DIR / sub
-        if not p.is_dir():
-            print(f"ERROR: Expected directory missing: {p}", file=sys.stderr)
+
+    for subdir in required_dirs:
+        path = WORK_DIR / subdir
+        if not path.is_dir():
+            print(f"ERROR: Expected directory missing: {path}", file=sys.stderr)
             return 1
 
     project_name = str(tlc_cfg.get("project_name", "ua_detrac_vehicle_detection"))
@@ -100,14 +113,22 @@ def main() -> int:
 
     if _tables_exist(project_name, dataset_name, train_name, val_name):
         print("\n  Tables already exist — skipping creation (idempotent).")
+
         train_t = tlc.Table.from_names(
-            project_name=project_name, dataset_name=dataset_name, table_name=train_name
+            project_name=project_name,
+            dataset_name=dataset_name,
+            table_name=train_name,
         ).latest()
+
         val_t = tlc.Table.from_names(
-            project_name=project_name, dataset_name=dataset_name, table_name=val_name
+            project_name=project_name,
+            dataset_name=dataset_name,
+            table_name=val_name,
         ).latest()
+
     else:
         print("\n  Creating train table from YOLO...")
+
         train_t = tlc.Table.from_yolo(
             dataset_yaml_file=str(dataset_yaml),
             split="train",
@@ -119,6 +140,7 @@ def main() -> int:
         print(f"  Train samples: {len(train_t)}")
 
         print("\n  Creating val table from YOLO...")
+
         val_t = tlc.Table.from_yolo(
             dataset_yaml_file=str(dataset_yaml),
             split="val",
@@ -131,10 +153,15 @@ def main() -> int:
 
     print(f"\n  Train : {train_t.url}")
     print(f"  Val   : {val_t.url}")
-    print("\n  Test images: use data/test/images with predict.py (not registered in 3LC).")
+    print(
+        "\n  Test images: use data/test/images with predict.py "
+        "(not registered in 3LC)."
+    )
+
     print("\n" + "=" * 70)
     print("OK — next: python train.py")
     print("=" * 70)
+
     return 0
 
 
