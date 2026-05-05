@@ -21,4 +21,3 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py') --fail-under=7.0 --disable=duplicate-code,C0114,C0115,C0116
-        - name: Analysing the code with pylint
